@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">recupDonneesGPS</string>
+    <string name="button_save_French">Sauvegarder</string>
+    <string name="button_save_Eng">Save</string>
+</resources>
