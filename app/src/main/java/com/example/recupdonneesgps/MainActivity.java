@@ -26,8 +26,16 @@ public class MainActivity extends AppCompatActivity implements LocationListener{
     private ClientDbHelper dbLoca;
     private Location currentLoca;
 
+    private void closeWithResultBool(Boolean b) {
+        Intent iRetour = new Intent();
+        iRetour.putExtra("addedInDB", b);
+        this.setResult(55, iRetour);
+        finish();
+    }
+
     public void surLeClickClearDbDev(View v) {
         this.dbLoca.onUpgrade(this.dbLoca.getWritableDatabase(), 1,1);
+        closeWithResultBool(true);
     }
 
     public void surLeClique(View v) {
@@ -43,8 +51,9 @@ public class MainActivity extends AppCompatActivity implements LocationListener{
         SQLiteDatabase readableDb = this.dbLoca.getReadableDatabase();
         Cursor curs = readableDb.rawQuery("SELECT * FROM LOCATION WHERE id=1;", null);
         curs.moveToFirst();
-        Toast.makeText(this, curs.getString(curs.getColumnIndexOrThrow("nomVoiture")).toString(), Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, curs.getString(curs.getColumnIndexOrThrow("nomVoiture")), Toast.LENGTH_SHORT).show();
 
+        closeWithResultBool(true);
     }
 
     @Override
@@ -88,4 +97,17 @@ public class MainActivity extends AppCompatActivity implements LocationListener{
     public void onProviderDisabled(String s) {
         Log.d("Latitude","disable");
     }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        this.dbLoca.close();
+    }
+
+    @Override
+    public void onBackPressed() {
+        closeWithResultBool(false);
+    }
+
+
 }
