@@ -51,7 +51,7 @@ public class MainActivity extends AppCompatActivity implements LocationListener{
         SQLiteDatabase readableDb = this.dbLoca.getReadableDatabase();
         Cursor curs = readableDb.rawQuery("SELECT * FROM LOCATION WHERE id=1;", null);
         curs.moveToFirst();
-        Toast.makeText(this, curs.getString(curs.getColumnIndexOrThrow("nomVoiture")), Toast.LENGTH_SHORT).show();
+        //Toast.makeText(this, curs.getString(curs.getColumnIndexOrThrow("nomVoiture")), Toast.LENGTH_SHORT).show();
 
         closeWithResultBool(true);
     }

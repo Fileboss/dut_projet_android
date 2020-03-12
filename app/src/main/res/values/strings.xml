@@ -2,6 +2,7 @@
     <string name="app_name">OuEstMaVoiture?</string>
     <string name="button_save_French">Sauvegarder</string>
     <string name="button_save_Eng">Save</string>
+    <string name="plus">+</string>
     <string name="func_sur_click_save">surLeClique</string>
     <string name="func_on_click_add">onClickAjouter</string>
 </resources>
