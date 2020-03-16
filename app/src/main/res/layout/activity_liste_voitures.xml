@@ -7,19 +7,20 @@
     tools:context=".listeVoitures">
 
     <ListView
-        android:id="@+id/dansLeScroll"
+        android:id="@+id/textVoiture"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginBottom="32dp"
+        android:layout_marginBottom="16dp"
         app:layout_constraintBottom_toTopOf="@+id/buttonAllerAjout"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"/>
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/buttonAllerAjout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="32dp"
+        android:layout_marginBottom="24dp"
         android:onClick="@string/func_on_click_add"
         android:text="@string/plus"
         app:layout_constraintBottom_toBottomOf="parent"

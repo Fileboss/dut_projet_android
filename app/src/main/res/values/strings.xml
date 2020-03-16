@@ -1,8 +1,16 @@
 <resources>
     <string name="app_name">OuEstMaVoiture?</string>
     <string name="button_save_French">Sauvegarder</string>
-    <string name="button_save_Eng">Save</string>
-    <string name="plus">+</string>
+    <string name="plus">Ajouter une voiture</string>
     <string name="func_sur_click_save">surLeClique</string>
     <string name="func_on_click_add">onClickAjouter</string>
+    <string name="func_on_click_open_map">onClickListViewItem</string>
+    <string name="title_activity_maps">Map</string>
+    <string name="about_titre">A PROPOS</string>
+    <string name="about_text">OuEstMaVoiture? est une application développée dans le cadre du module
+        P222, pour l\'IUT informatique de Toulouse. Cette application a été développée par Antoine
+        MILHAU et Philippe BAUS, élèves du groupe S4B. OuEstMaVoiture? permet d\'enregistrer les
+        coordonnées GPS de l\'endoit où l\'on laisse sa voiture, afin de la retrouver facilement.
+        Merci d\'utiliser OuEstMaVoiture?
+    </string>
 </resources>
