@@ -10,8 +10,12 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Adapter;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.ListAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -25,24 +29,40 @@ public class listeVoitures extends AppCompatActivity {
         startActivityForResult(new Intent(this, MainActivity.class), 55);
     }
 
-    public void onClickListViewItem(View v) {
+    /*public void onClickListViewItem(View v) {
         Intent myIntent = new Intent(this, MapsActivity.class);
         myIntent.putExtra("id", "2");
 
         startActivity(myIntent);
-    }
+    }*/
 
     private void afficherVoitures() {
         SQLiteDatabase readableDb = this.dbLoca.getReadableDatabase();
 
         ListView listeVoiture = findViewById(R.id.textVoiture);
-        List<String> valeursVoit = new ArrayList<>();
+        List<Couple> valeursVoit = new ArrayList<>();
         Cursor curs = readableDb.rawQuery("SELECT * FROM LOCATION;", null);
         while(curs.moveToNext()) {
-            valeursVoit.add(curs.getString(curs.getColumnIndexOrThrow("nomVoiture"))+" l'id est : "+curs.getString(curs.getColumnIndexOrThrow("id")));
+            Couple<String, String> myCouple = new Couple<>(curs.getString(curs.getColumnIndexOrThrow("id")), curs.getString(curs.getColumnIndexOrThrow("nomVoiture")));
+            valeursVoit.add(myCouple);
         }
         ArrayAdapter<String> adapter = new VoituresAdapter(this,0, valeursVoit);
         listeVoiture.setAdapter(adapter);
+
+        listeVoiture.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int i, long l) {
+                ListView list = (ListView) parent;
+                ListAdapter myListAdapter = list.getAdapter();
+                Toast.makeText(getApplicationContext(), myListAdapter.getItem(i).toString(), Toast.LENGTH_SHORT).show();
+                Intent myIntent = new Intent(getApplicationContext(), MapsActivity.class);
+                Couple<String, String> c = (Couple) myListAdapter.getItem(i);
+                myIntent.putExtra("id", c.getFirst());
+                //Envoyer le string à la map
+
+                startActivity(myIntent);
+            }
+        });
     }
 
     @Override
