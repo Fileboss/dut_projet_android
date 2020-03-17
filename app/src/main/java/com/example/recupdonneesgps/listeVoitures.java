@@ -37,6 +37,7 @@ public class listeVoitures extends AppCompatActivity {
     }*/
 
     private void afficherVoitures() {
+        Toast.makeText(this, "Afficher voiture", Toast.LENGTH_SHORT).show();
         SQLiteDatabase readableDb = this.dbLoca.getReadableDatabase();
 
         ListView listeVoiture = findViewById(R.id.textVoiture);
@@ -48,21 +49,13 @@ public class listeVoitures extends AppCompatActivity {
         }
         ArrayAdapter<String> adapter = new VoituresAdapter(this,0, valeursVoit);
         listeVoiture.setAdapter(adapter);
+    }
 
-        listeVoiture.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int i, long l) {
-                ListView list = (ListView) parent;
-                ListAdapter myListAdapter = list.getAdapter();
-                Toast.makeText(getApplicationContext(), myListAdapter.getItem(i).toString(), Toast.LENGTH_SHORT).show();
-                Intent myIntent = new Intent(getApplicationContext(), MapsActivity.class);
-                Couple<String, String> c = (Couple) myListAdapter.getItem(i);
-                myIntent.putExtra("id", c.getFirst());
-                //Envoyer le string à la map
-
-                startActivity(myIntent);
-            }
-        });
+    public void supprimerVoiture(String id) {
+        Toast.makeText(this, "suprimer voiture", Toast.LENGTH_SHORT).show();
+        SQLiteDatabase writableDb = this.dbLoca.getWritableDatabase();
+        writableDb.delete("Location", "id="+id, null);
+        this.afficherVoitures();
     }
 
     @Override
@@ -71,6 +64,8 @@ public class listeVoitures extends AppCompatActivity {
         setContentView(R.layout.activity_liste_voitures);
         this.dbLoca = new ClientDbHelper(this);
         this.afficherVoitures();
+
+
 
     }
 

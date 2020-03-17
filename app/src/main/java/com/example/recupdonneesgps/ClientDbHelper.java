@@ -26,4 +26,5 @@ public class ClientDbHelper extends SQLiteOpenHelper {
         db.execSQL(this.SQL_DELETE);
         this.onCreate(db);
     }
+
 }
