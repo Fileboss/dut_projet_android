@@ -6,4 +6,8 @@
     <string name="plus">Add a car</string>
     <string name="about_text">OuEstMaVoiture? Is an application developped fot the P222 subject, for the Toulouse’s IT Institute of Technology. This application was developped by Antoine MILHAU and Philippe BAUS, both studens from group S4B. OuEstMaVoiture? Allows the user to save his car location, and to find it back easily. Thank you for using OuEstMaVoiture?</string>
     <string name="btn_supr">del.</string>
+    <string name="menu_item_param">Settings</string>
+    <string name="popup_title">Delete</string>
+    <string name="popup_positive">Yes</string>
+    <string name="popup_negative">No</string>
 </resources>

@@ -20,6 +20,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private GoogleMap mMap;
     private ClientDbHelper dbLoca;
     private int valeurId;
+    private String valeurNomVoiture;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,6 +33,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         this.dbLoca = new ClientDbHelper(this);
         Intent myIntent = getIntent();
         this.valeurId = Integer.parseInt(myIntent.getStringExtra("id"));
+        this.valeurNomVoiture = myIntent.getStringExtra("nomVoiture");
     }
 
 
@@ -57,7 +59,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         // Add a marker in Sydney and move the camera
         Toast.makeText(this, curs.getString(curs.getColumnIndexOrThrow("long")), Toast.LENGTH_SHORT);
         LatLng positionVoiture = new LatLng(Float.parseFloat(curs.getString(curs.getColumnIndexOrThrow("lat"))), Float.parseFloat(curs.getString(curs.getColumnIndexOrThrow("long"))));
-        mMap.addMarker(new MarkerOptions().position(positionVoiture).title("Marker is cabanac"));
+        mMap.addMarker(new MarkerOptions().position(positionVoiture).title(this.valeurNomVoiture));
         /*mMap.moveCamera(CameraUpdateFactory.newLatLng(positionVoiture));
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(positionVoiture, 15f));*/
         mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(positionVoiture, 15f));

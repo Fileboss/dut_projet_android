@@ -1,6 +1,8 @@
 package com.example.recupdonneesgps;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.view.LayoutInflater;
@@ -34,11 +36,10 @@ public class VoituresAdapter extends ArrayAdapter {
         voitureName.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(getContext(), "MARIE", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(getContext(), "MARIE", Toast.LENGTH_SHORT).show();
                 Intent myIntent = new Intent(getContext(), MapsActivity.class);
                 myIntent.putExtra("id", s.getFirst());
-                //Envoyer le string à la map
-
+                myIntent.putExtra("nomVoiture", s.getSecond());
                 getContext().startActivity(myIntent);
             }
         });
@@ -49,12 +50,23 @@ public class VoituresAdapter extends ArrayAdapter {
             @Override
             public void onClick(View view) {
 
-                listeVoitures l = (listeVoitures) getContext();
-                l.supprimerVoiture(s.getFirst());
+                AlertDialog.Builder myPopup = new AlertDialog.Builder(getContext());
+                myPopup.setTitle(getContext().getString(R.string.popup_title)+" "+s.getSecond()+" ?");
+                myPopup.setPositiveButton(R.string.popup_positive, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        listeVoitures l = (listeVoitures) getContext();
+                        l.supprimerVoiture(s.getFirst());
+                    }
+                });
+                myPopup.setNegativeButton(R.string.popup_negative, null);
+                myPopup.show();
+
+
             }
         });
         // Populate the data into the template view using the data object
-        voitureName.setText(s.getSecond().toString());
+        voitureName.setText(s.getSecond());
         // Return the completed view to render on screen
 
         return convertView;

@@ -14,4 +14,8 @@
         Merci d\'utiliser OuEstMaVoiture?
     </string>
     <string name="btn_supr">suppr.</string>
+    <string name="menu_item_param">Paramètres</string>
+    <string name="popup_title">Supprimer</string>
+    <string name="popup_positive">Oui</string>
+    <string name="popup_negative">Non</string>
 </resources>

@@ -24,6 +24,7 @@ import java.util.List;
 public class listeVoitures extends AppCompatActivity {
 
     private ClientDbHelper dbLoca;
+    ArrayAdapter<String> adapter;
 
     public void onClickAjouter(View v) {
         startActivityForResult(new Intent(this, MainActivity.class), 55);
@@ -47,8 +48,8 @@ public class listeVoitures extends AppCompatActivity {
             Couple<String, String> myCouple = new Couple<>(curs.getString(curs.getColumnIndexOrThrow("id")), curs.getString(curs.getColumnIndexOrThrow("nomVoiture")));
             valeursVoit.add(myCouple);
         }
-        ArrayAdapter<String> adapter = new VoituresAdapter(this,0, valeursVoit);
-        listeVoiture.setAdapter(adapter);
+        this.adapter = new VoituresAdapter(this,0, valeursVoit);
+        listeVoiture.setAdapter(this.adapter);
     }
 
     public void supprimerVoiture(String id) {
