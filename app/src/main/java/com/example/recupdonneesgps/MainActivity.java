@@ -1,11 +1,17 @@
 package com.example.recupdonneesgps;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
+import android.Manifest;
 import android.app.PendingIntent;
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.location.Location;
@@ -25,6 +31,7 @@ public class MainActivity extends AppCompatActivity implements LocationListener{
     TextView txtLat;
     private ClientDbHelper dbLoca;
     private Location currentLoca;
+
 
     private void closeWithResultBool(Boolean b) {
         Intent iRetour = new Intent();
@@ -72,6 +79,7 @@ public class MainActivity extends AppCompatActivity implements LocationListener{
 
         this.locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
         //if (checkPermission()
+
         locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, this);
 
     }
@@ -108,6 +116,9 @@ public class MainActivity extends AppCompatActivity implements LocationListener{
     public void onBackPressed() {
         closeWithResultBool(false);
     }
+
+
+
 
 
 }

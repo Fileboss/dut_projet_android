@@ -18,4 +18,9 @@
     <string name="popup_title">Supprimer</string>
     <string name="popup_positive">Oui</string>
     <string name="popup_negative">Non</string>
+    <string name="title_location_permission">Autoriser l\'accès à la position ?</string>
+    <string name="text_location_permission">Autoriser vous OuEstMaVoiture? à accéder à la position de votre appareil ?</string>
+    <string name="title_storage_permission">Autoriser l\'accès à l\'espace de stockage ?</string>
+    <string name="text_storage_permission">Autoriser vous OuEstMaVoiture? à accéder au stockage de votre appareil ?</string>
+
 </resources>

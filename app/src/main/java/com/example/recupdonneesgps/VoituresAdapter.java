@@ -37,7 +37,7 @@ public class VoituresAdapter extends ArrayAdapter {
             @Override
             public void onClick(View view) {
                 //Toast.makeText(getContext(), "MARIE", Toast.LENGTH_SHORT).show();
-                Intent myIntent = new Intent(getContext(), MapsActivity.class);
+                Intent myIntent = new Intent(getContext(), OpenMapsActivity.class);
                 myIntent.putExtra("id", s.getFirst());
                 myIntent.putExtra("nomVoiture", s.getSecond());
                 getContext().startActivity(myIntent);

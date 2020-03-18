@@ -10,4 +10,8 @@
     <string name="popup_title">Delete</string>
     <string name="popup_positive">Yes</string>
     <string name="popup_negative">No</string>
+    <string name="title_location_permission">Allow access to location ?</string>
+    <string name="text_location_permission">Do you allow OuEstMaVoiture? to access your device\'s location ?</string>
+    <string name="title_storage_permission">Allow access to storage ?</string>
+    <string name="text_storage_permission">Do you allow OuEstMaVoiture? to access your device\'s storage ?</string>
 </resources>
