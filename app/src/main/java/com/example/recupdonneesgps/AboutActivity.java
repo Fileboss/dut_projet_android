@@ -4,8 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.text.Layout;
-import android.widget.TextView;
+import android.view.MenuItem;
 
 public class AboutActivity extends AppCompatActivity {
 
@@ -19,5 +18,14 @@ public class AboutActivity extends AppCompatActivity {
         int themeUsed = preferences.getInt(PREF_DARK_THEME, R.style.AppTheme_Dark);
         this.setTheme(themeUsed);
         setContentView(R.layout.activity_about);
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item){
+        finish();
+        return true;
     }
 }

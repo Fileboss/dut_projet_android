@@ -7,6 +7,7 @@ import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.view.MenuItem;
 
 import org.osmdroid.config.Configuration;
 import org.osmdroid.util.GeoPoint;
@@ -37,6 +38,7 @@ public class OpenMapsActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_open_maps);
 
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         this.dbLoca = new ClientDbHelper(this);
         Intent myIntent = getIntent();
@@ -70,4 +72,12 @@ public class OpenMapsActivity extends AppCompatActivity {
         super.onDestroy();
         this.dbLoca.close();
     }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item){
+        finish();
+        return true;
+    }
+
+
 }

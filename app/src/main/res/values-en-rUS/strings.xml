@@ -4,7 +4,7 @@
     <string name="about_titre">ABOUT</string>
     <string name="button_save_French">Save</string>
     <string name="plus">Add a car</string>
-    <string name="about_text">OuEstMaVoiture? Is an application developped fot the P222 subject, for the Toulouse’s IT Institute of Technology. This application was developped by Antoine MILHAU and Philippe BAUS, both studens from group S4B. OuEstMaVoiture? Allows the user to save his car location, and to find it back easily. Thank you for using OuEstMaVoiture?</string>
+    <string name="about_text">OuEstMaVoiture? is an application developped for the P222 subject, for Toulouse’s IT Institute of Technology. This application was developped by Antoine MILHAU and Philippe BAUS, both studens from group S4B. OuEstMaVoiture? Allows the user to save his car location, and to find it back easily. Thank you for using OuEstMaVoiture?</string>
     <string name="btn_supr">del.</string>
     <string name="menu_item_param">Settings</string>
     <string name="popup_title">Delete</string>
@@ -18,4 +18,5 @@
     <string name="radio_settings_dark">Dark</string>
     <string name="radio_settings_light">Light</string>
     <string name="radio_settings_crazy">Crazy</string>
+    <string name="text_easter_egg">Congrats, you found our easter egg !\nIt\'s also because the image wouldn\'t fit fullsized in landscape mode.</string>
 </resources>

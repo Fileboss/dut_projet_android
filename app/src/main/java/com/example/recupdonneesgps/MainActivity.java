@@ -20,8 +20,10 @@ import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.accessibility.AccessibilityManager;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -32,6 +34,7 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
     TextView txtLat;
     private ClientDbHelper dbLoca;
     private Location currentLoca;
+    private boolean locationSetFirstTime;
 
     private static final String PREFS_NAME = "prefs";
     private static final String PREF_DARK_THEME = "theme";
@@ -72,13 +75,17 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
         Intent i = new Intent(this, MainActivity.class);
         setContentView(R.layout.activity_main);
 
-        EditText textNomVoit = findViewById(R.id.nomVoiture);
-        textNomVoit.addTextChangedListener(new EcouteurNomVoiture(this));
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        Button b = findViewById(R.id.buttonSave);
+        this.locationSetFirstTime = false;
+        b.setEnabled(false);
 
 
         this.dbLoca = new ClientDbHelper(this);
 
-        this.txtLat = (TextView) findViewById(R.id.textview1);
+        this.txtLat = findViewById(R.id.textview1);
 
         this.locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
         //if (checkPermission()
@@ -89,7 +96,13 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
 
     @Override
     public void onLocationChanged(Location location) {
-        this.txtLat = (TextView) findViewById(R.id.textview1);
+        if(!this.locationSetFirstTime) {
+            Button b = findViewById(R.id.buttonSave);
+            EditText textNomVoit = findViewById(R.id.nomVoiture);
+            textNomVoit.addTextChangedListener(new EcouteurNomVoiture(this));
+            this.locationSetFirstTime = true;
+        }
+        this.txtLat = findViewById(R.id.textview1);
         this.txtLat.setText("Latitude:" + location.getLatitude() + "\nLongitude:" + location.getLongitude());
         this.currentLoca = location;
     }
@@ -120,6 +133,11 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
         closeWithResultBool(false);
     }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item){
+        closeWithResultBool(false);
+        return true;
+    }
 
 
 

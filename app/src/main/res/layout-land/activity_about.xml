@@ -6,6 +6,18 @@
     android:layout_height="match_parent"
     tools:context=".AboutActivity">
 
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="179dp"
+        android:layout_height="76dp"
+        android:layout_marginTop="28dp"
+        android:layout_marginBottom="74dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/textView"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textAbout"
+        app:srcCompat="@drawable/iut_a" />
+
     <TextView
         android:id="@+id/textAbout"
         android:layout_width="match_parent"
@@ -34,13 +46,16 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="243dp"
-        android:layout_height="149dp"
-        android:layout_marginTop="28dp"
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="52dp"
+        android:layout_marginEnd="48dp"
+        android:layout_marginBottom="90dp"
+        android:text="@string/text_easter_egg"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textAbout"
-        app:srcCompat="@drawable/iut_a" />
+        app:layout_constraintTop_toBottomOf="@+id/textAbout" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

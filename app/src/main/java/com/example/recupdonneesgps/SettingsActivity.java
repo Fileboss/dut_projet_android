@@ -1,7 +1,9 @@
 package com.example.recupdonneesgps;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
@@ -22,6 +24,7 @@ public class SettingsActivity extends AppCompatActivity {
         int themeUsed = preferences.getInt(PREF_DARK_THEME, R.style.AppTheme_Dark);
         this.setTheme(themeUsed);
         setContentView(R.layout.activity_settings);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         switch(themeUsed) {
             case R.style.AppTheme_Dark:
                 ((RadioButton) findViewById(R.id.radioDarkTheme)).setChecked(true);
@@ -64,6 +67,12 @@ public class SettingsActivity extends AppCompatActivity {
         //////////////
 
 
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item){
+        finish();
+        return true;
     }
 
 }

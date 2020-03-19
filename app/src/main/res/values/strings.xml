@@ -26,5 +26,6 @@
     <string name="radio_settings_dark">Sombre</string>
     <string name="radio_settings_light">Clair</string>
     <string name="radio_settings_crazy">Fou</string>
+    <string name="text_easter_egg">Bravo, vous avez trouvé notre oeuf de pâques !\nc\'est aussi surtout car l\'image ne rentrait en entier pas en mode portrait.</string>
 
 </resources>
