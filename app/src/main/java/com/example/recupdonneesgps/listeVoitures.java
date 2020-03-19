@@ -1,28 +1,19 @@
 package com.example.recupdonneesgps;
 
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
 
-import android.Manifest;
-import android.content.DialogInterface;
+import androidx.appcompat.app.AppCompatActivity;
+
 import android.content.Intent;
-import android.content.pm.PackageManager;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Adapter;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.ListAdapter;
 import android.widget.ListView;
-import android.widget.TextView;
-import android.widget.Toast;
+
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,6 +24,9 @@ public class listeVoitures extends AppCompatActivity {
     ArrayAdapter<String> adapter;
     public static final int MY_PERMISSIONS_REQUEST_LOCATION = 99;
     public static final int MY_PERMISSIONS_REQUEST_STORAGE = 98;
+    private static final String PREFS_NAME = "prefs";
+    private static final String PREF_DARK_THEME = "theme";
+
 
     public void onClickAjouter(View v) {
         startActivityForResult(new Intent(this, MainActivity.class), 55);
@@ -46,7 +40,7 @@ public class listeVoitures extends AppCompatActivity {
     }*/
 
     private void afficherVoitures() {
-        Toast.makeText(this, "Afficher voiture", Toast.LENGTH_SHORT).show();
+        //Toast.makeText(this, "Afficher voiture", Toast.LENGTH_SHORT).show();
         SQLiteDatabase readableDb = this.dbLoca.getReadableDatabase();
 
         ListView listeVoiture = findViewById(R.id.textVoiture);
@@ -58,10 +52,11 @@ public class listeVoitures extends AppCompatActivity {
         }
         this.adapter = new VoituresAdapter(this,0, valeursVoit);
         listeVoiture.setAdapter(this.adapter);
+        curs.close();
     }
 
     public void supprimerVoiture(String id) {
-        Toast.makeText(this, "suprimer voiture", Toast.LENGTH_SHORT).show();
+        //Toast.makeText(this, "suprimer voiture", Toast.LENGTH_SHORT).show();
         SQLiteDatabase writableDb = this.dbLoca.getWritableDatabase();
         writableDb.delete("Location", "id="+id, null);
         this.afficherVoitures();
@@ -70,17 +65,12 @@ public class listeVoitures extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        if(checkLocationPermission())
-        checkStorageLocation();
-
-
+        SharedPreferences preferences = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
+        int themeUsed = preferences.getInt(PREF_DARK_THEME, R.style.AppTheme_Dark);
+        this.setTheme(themeUsed);
         setContentView(R.layout.activity_liste_voitures);
         this.dbLoca = new ClientDbHelper(this);
         this.afficherVoitures();
-
-
-
     }
 
     @Override
@@ -98,16 +88,17 @@ public class listeVoitures extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data){
         super.onActivityResult(requestCode, resultCode, data);
-        if(requestCode==55);{
-            boolean valeur = data.getBooleanExtra("addedInDB", false);
-            if(valeur) {
-                ListView listeVoiture = findViewById(R.id.textVoiture);
-                /*if (listeVoiture.getChildCount() > 0)
-                    listeVoiture.removeAllViews(); */
-                this.afficherVoitures();
-                Toast.makeText(this, "WOW GENE", Toast.LENGTH_SHORT).show();
-
-            }
+        switch(requestCode){
+            case 55:
+                boolean v55 = data.getBooleanExtra("addedInDB", false);
+                if(v55) {
+                    this.afficherVoitures();
+                }
+                break;
+            case 56:
+                finish();
+                startActivity(getIntent());
+                break;
         }
     }
 
@@ -121,16 +112,18 @@ public class listeVoitures extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.menu_parametres :
+                Intent intentSettings = new Intent(this, SettingsActivity.class);
+                startActivityForResult(intentSettings, 56);
                 break;
             case R.id.menu_about :
-                Intent myIntent = new Intent(this, AboutActivity.class);
-                startActivity(myIntent);
+                Intent intentAbout = new Intent(this, AboutActivity.class);
+                startActivity(intentAbout);
                 break;
         }
         return super.onOptionsItemSelected(item);
     }
 
-    // Code copié d'internet permettant de demander proprement l'autorisation d'accès à la position GPS
+    /*
     public boolean checkLocationPermission() {
         if (ContextCompat.checkSelfPermission(this,
                 Manifest.permission.ACCESS_FINE_LOCATION)
@@ -169,7 +162,7 @@ public class listeVoitures extends AppCompatActivity {
         } else {
             return true;
         }
-    }
+    }*/
 
    /* @Override
     public void onRequestPermissionsResult(int requestCode,
@@ -225,7 +218,7 @@ public class listeVoitures extends AppCompatActivity {
 
         }
     }*/
-
+/*
     public boolean checkStorageLocation() {
         if (ContextCompat.checkSelfPermission(this,
                 Manifest.permission.WRITE_EXTERNAL_STORAGE)
@@ -260,5 +253,5 @@ public class listeVoitures extends AppCompatActivity {
             return true;
         }
     }
-
+*/
 }

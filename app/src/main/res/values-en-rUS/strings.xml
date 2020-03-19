@@ -14,4 +14,8 @@
     <string name="text_location_permission">Do you allow OuEstMaVoiture? to access your device\'s location ?</string>
     <string name="title_storage_permission">Allow access to storage ?</string>
     <string name="text_storage_permission">Do you allow OuEstMaVoiture? to access your device\'s storage ?</string>
+    <string name="title_settings_theme">Choose a theme</string>
+    <string name="radio_settings_dark">Dark</string>
+    <string name="radio_settings_light">Light</string>
+    <string name="radio_settings_crazy">Crazy</string>
 </resources>

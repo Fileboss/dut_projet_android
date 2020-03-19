@@ -3,6 +3,7 @@ package com.example.recupdonneesgps;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
@@ -20,9 +21,17 @@ public class OpenMapsActivity extends AppCompatActivity {
     private String valeurNomVoiture;
     private ClientDbHelper dbLoca;
 
+    private static final String PREFS_NAME = "prefs";
+    private static final String PREF_DARK_THEME = "theme";
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        SharedPreferences preferences = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
+        int themeUsed = preferences.getInt(PREF_DARK_THEME, R.style.AppTheme_Dark);
+        this.setTheme(themeUsed);
 
         Configuration.getInstance().setUserAgentValue(BuildConfig.APPLICATION_ID);
 

@@ -22,5 +22,9 @@
     <string name="text_location_permission">Autoriser vous OuEstMaVoiture? à accéder à la position de votre appareil ?</string>
     <string name="title_storage_permission">Autoriser l\'accès à l\'espace de stockage ?</string>
     <string name="text_storage_permission">Autoriser vous OuEstMaVoiture? à accéder au stockage de votre appareil ?</string>
+    <string name="title_settings_theme">Choisissez un thème</string>
+    <string name="radio_settings_dark">Sombre</string>
+    <string name="radio_settings_light">Clair</string>
+    <string name="radio_settings_crazy">Fou</string>
 
 </resources>

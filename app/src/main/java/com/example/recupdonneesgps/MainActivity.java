@@ -11,6 +11,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -25,12 +26,15 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class MainActivity extends AppCompatActivity implements LocationListener{
+public class MainActivity extends AppCompatActivity implements LocationListener {
 
     protected LocationManager locationManager;
     TextView txtLat;
     private ClientDbHelper dbLoca;
     private Location currentLoca;
+
+    private static final String PREFS_NAME = "prefs";
+    private static final String PREF_DARK_THEME = "theme";
 
 
     private void closeWithResultBool(Boolean b) {
@@ -53,12 +57,8 @@ public class MainActivity extends AppCompatActivity implements LocationListener{
         cv.put("Long", this.currentLoca.getLongitude());
         cv.put("Lat", this.currentLoca.getLatitude());
         writableDb.insert("Location", null, cv);
+        Toast.makeText(this, "Voiture " + e.getText().toString() + " ajoutée.", Toast.LENGTH_SHORT).show();
         e.setText("");
-
-        SQLiteDatabase readableDb = this.dbLoca.getReadableDatabase();
-        Cursor curs = readableDb.rawQuery("SELECT * FROM LOCATION WHERE id=1;", null);
-        curs.moveToFirst();
-        //Toast.makeText(this, curs.getString(curs.getColumnIndexOrThrow("nomVoiture")), Toast.LENGTH_SHORT).show();
 
         closeWithResultBool(true);
     }
@@ -66,6 +66,9 @@ public class MainActivity extends AppCompatActivity implements LocationListener{
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        SharedPreferences preferences = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
+        int themeUsed = preferences.getInt(PREF_DARK_THEME, R.style.AppTheme_Dark);
+        this.setTheme(themeUsed);
         Intent i = new Intent(this, MainActivity.class);
         setContentView(R.layout.activity_main);
 
