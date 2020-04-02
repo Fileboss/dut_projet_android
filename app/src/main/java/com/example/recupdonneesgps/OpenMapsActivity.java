@@ -22,6 +22,7 @@ public class OpenMapsActivity extends AppCompatActivity {
     private String valeurNomVoiture;
     private ClientDbHelper dbLoca;
 
+    //nom des clefs préférences pour les préférences utilisateur
     private static final String PREFS_NAME = "prefs";
     private static final String PREF_DARK_THEME = "theme";
 
@@ -30,9 +31,11 @@ public class OpenMapsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        //on recupère le theme sauvegardé dans les userpreferences pour l'appli (cf. SettingsActivity)
         SharedPreferences preferences = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
         int themeUsed = preferences.getInt(PREF_DARK_THEME, R.style.AppTheme_Dark);
         this.setTheme(themeUsed);
+        //////////////////////////////////////////////////////////////////////////////////////////////
 
         Configuration.getInstance().setUserAgentValue(BuildConfig.APPLICATION_ID);
 

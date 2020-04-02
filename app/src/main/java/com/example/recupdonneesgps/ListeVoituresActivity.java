@@ -18,32 +18,30 @@ import android.widget.ListView;
 import java.util.ArrayList;
 import java.util.List;
 
-public class listeVoitures extends AppCompatActivity {
+public class ListeVoituresActivity extends AppCompatActivity {
 
     private ClientDbHelper dbLoca;
     ArrayAdapter<String> adapter;
-    public static final int MY_PERMISSIONS_REQUEST_LOCATION = 99;
-    public static final int MY_PERMISSIONS_REQUEST_STORAGE = 98;
+    //public static final int MY_PERMISSIONS_REQUEST_LOCATION = 99;
+    //public static final int MY_PERMISSIONS_REQUEST_STORAGE = 98;
+
+    //nom des clefs pour les préférences utilisateur
     private static final String PREFS_NAME = "prefs";
     private static final String PREF_DARK_THEME = "theme";
 
 
+    //on click du bouton ajouter voiture
     public void onClickAjouter(View v) {
-        startActivityForResult(new Intent(this, MainActivity.class), 55);
+        startActivityForResult(new Intent(this, AjouterVoitureActivity.class), 55);
     }
 
-    /*public void onClickListViewItem(View v) {
-        Intent myIntent = new Intent(this, MapsActivity.class);
-        myIntent.putExtra("id", "2");
 
-        startActivity(myIntent);
-    }*/
-
+    //méthode qui réaffiche la liste des voiture avec les données de la BDD
     private void afficherVoitures() {
-        //Toast.makeText(this, "Afficher voiture", Toast.LENGTH_SHORT).show();
         SQLiteDatabase readableDb = this.dbLoca.getReadableDatabase();
 
         ListView listeVoiture = findViewById(R.id.textVoiture);
+        //on utilise une liste de "Couple" pour envoyer deux valeurs à l'adapteur
         List<Couple> valeursVoit = new ArrayList<>();
         Cursor curs = readableDb.rawQuery("SELECT * FROM LOCATION;", null);
         while(curs.moveToNext()) {
@@ -55,8 +53,9 @@ public class listeVoitures extends AppCompatActivity {
         curs.close();
     }
 
+    //méthode permetant la suppression d'une voiture de la BDD
+    //met aussi à jour la liste affichée
     public void supprimerVoiture(String id) {
-        //Toast.makeText(this, "suprimer voiture", Toast.LENGTH_SHORT).show();
         SQLiteDatabase writableDb = this.dbLoca.getWritableDatabase();
         writableDb.delete("Location", "id="+id, null);
         this.afficherVoitures();
@@ -65,11 +64,16 @@ public class listeVoitures extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        //on recupère le theme sauvegardé dans les userpreferences pour l'appli (cf. SettingsActivity)
         SharedPreferences preferences = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
         int themeUsed = preferences.getInt(PREF_DARK_THEME, R.style.AppTheme_Dark);
         this.setTheme(themeUsed);
+        //////////////////////////////////////////////////////////////////////////////////////////////
+
         setContentView(R.layout.activity_liste_voitures);
         this.dbLoca = new ClientDbHelper(this);
+        //on affiche les voiture à la creation de l'activité
         this.afficherVoitures();
     }
 
@@ -90,26 +94,33 @@ public class listeVoitures extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         switch(requestCode){
             case 55:
+                //retour de l'activité AjouterVoiture
+                //si une voiture a été ajoutée dans la BDD alors on rafraichit la liste des voitures
                 boolean v55 = data.getBooleanExtra("addedInDB", false);
                 if(v55) {
                     this.afficherVoitures();
                 }
                 break;
             case 56:
+                //retour de l'activité Settings
+                //(on ferme l'activité principale et on l'ouvre à nouveau pour mettre à jour le theme)
                 finish();
                 startActivity(getIntent());
                 break;
         }
     }
 
+    //barre menu
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.main_menu, menu);
         return true;
     }
 
+    //ecouteurs des items du menu
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+        //selon l'item cliqué on démarre une activité différente
         switch (item.getItemId()) {
             case R.id.menu_parametres :
                 Intent intentSettings = new Intent(this, SettingsActivity.class);
@@ -123,6 +134,8 @@ public class listeVoitures extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+
+    // CODE TRAITANT DES PERMISSIONS APRES L'API 22 (inutile dans le cadre de l'évaluation donc commenté)
     /*
     public boolean checkLocationPermission() {
         if (ContextCompat.checkSelfPermission(this,

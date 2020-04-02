@@ -7,22 +7,23 @@ import androidx.appcompat.app.AppCompatActivity;
 
 public class EcouteurNomVoiture implements TextWatcher {
 
-    private AppCompatActivity a;
+    private AppCompatActivity app;
 
     public EcouteurNomVoiture(AppCompatActivity a) {
-        this.a = a;
+        this.app = a;
     }
 
     @Override
     public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
     }
 
     @Override
     public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-        Button bt1 = this.a.findViewById(R.id.buttonSave);
-        EditText nomVoiture = this.a.findViewById(R.id.nomVoiture);
-        if(nomVoiture.getText().toString().isEmpty()) bt1.setEnabled(false); else bt1.setEnabled(true);
+        //permet d'activer/de désactiver le bouton sauvegarder de l'activité AjouterVoiture
+        Button bt1 = this.app.findViewById(R.id.buttonSave);
+        EditText nomVoiture = this.app.findViewById(R.id.nomVoiture);
+        bt1.setEnabled(!nomVoiture.getText().toString().isEmpty());
+
     }
 
     @Override
