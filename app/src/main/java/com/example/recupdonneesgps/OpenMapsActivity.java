@@ -37,30 +37,36 @@ public class OpenMapsActivity extends AppCompatActivity {
         this.setTheme(themeUsed);
         //////////////////////////////////////////////////////////////////////////////////////////////
 
+        //Définition de l'ID pour accéder à OSM
         Configuration.getInstance().setUserAgentValue(BuildConfig.APPLICATION_ID);
 
         setContentView(R.layout.activity_open_maps);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+        //Ouverture ede la db , récupération des infos stockées dans l'extra de l'intent
         this.dbLoca = new ClientDbHelper(this);
         Intent myIntent = getIntent();
         this.valeurId = Integer.parseInt(myIntent.getStringExtra("id"));
         this.valeurNomVoiture = myIntent.getStringExtra("nomVoiture");
 
+        //Requête sur la db, On récupère lalatitute et la longitude de la voiture correspondant à
+        //l'id passé dans l'intent extra
         SQLiteDatabase readableDb = this.dbLoca.getReadableDatabase();
         Cursor curs = readableDb.rawQuery("SELECT long, lat FROM LOCATION WHERE id="+this.valeurId+";", null);
         curs.moveToFirst();
 
+
+        //Ouverture et initialisation de la map
         myOpenMapView = (MapView)findViewById(R.id.mapview);
         myOpenMapView.setBuiltInZoomControls(true);
         myOpenMapView.setClickable(true);
         myOpenMapView.getController().setZoom(15);
         myOpenMapView.setBuiltInZoomControls(true);
 
+        //Placer le marqueur à la lattitude et longitude récupérées précédement
         GeoPoint test = new GeoPoint(Float.parseFloat(curs.getString(curs.getColumnIndexOrThrow("lat"))), Float.parseFloat(curs.getString(curs.getColumnIndexOrThrow("long"))));
         myOpenMapView.getController().setCenter(test);
-
         Marker tec = new Marker(myOpenMapView);
         tec.setPosition(test);
         tec.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM);
@@ -73,7 +79,7 @@ public class OpenMapsActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        this.dbLoca.close();
+        dbLoca.close();
     }
 
     @Override
